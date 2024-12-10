@@ -11,6 +11,7 @@ Local Instalation:
     npm install --save sequelize
     npm install bcrypt
     npm install jsonwebtoken
+    npm install swagger-ui-express swagger-autogen
 
 
     Configurate .env ( BD, JWT_SECRET, etc.).

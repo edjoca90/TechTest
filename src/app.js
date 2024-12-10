@@ -7,6 +7,8 @@ const authRoutes = require('./routes/authRoutes');
 const config = require('./config/env');
 const sequelize = require('./config/database');
 const healthRoutes = require('./routes/healthRoutes');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger-output.json');
 
 const app = express();
 
@@ -14,12 +16,12 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 app.use('/api/health', healthRoutes);
 
-
-// Manejo de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Error interno del servidor' });
 });
+
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Sincronizar base de datos y arrancar servidor
 const PORT = config.port || 3000;
