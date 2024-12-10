@@ -6,10 +6,19 @@ class Token extends Model {}
  
 Token.init(
   {
-    value: {
+    token_id:{
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true
+    },    
+    token: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
+    expires_at: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
   },
   {
     sequelize,        // Instancia de Sequelize

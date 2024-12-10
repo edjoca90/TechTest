@@ -14,7 +14,7 @@ const healthRoutes = require('./routes/healthRoutes');
 
 
 const User = require('./models/User'); 
-const Token = require('./models/Token');
+//const Token = require('./models/Token');
 const app = express();
 
 app.use(express.json());

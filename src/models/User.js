@@ -11,11 +11,11 @@ class User extends Model {}
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true
     },
-    name: {
+    user_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    email: {
+    user_email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,

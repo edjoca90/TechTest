@@ -12,6 +12,7 @@ Local Instalation:
     npm install bcrypt
     npm install jsonwebtoken
     npm install swagger-ui-express swagger-autogen
+    npm install --save-dev vitest
 
 
     Configurate .env ( BD, JWT_SECRET, etc.).
