@@ -16,12 +16,12 @@ const register = async (req, res) => {
     if (!name || !email || !password) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
-/*
+
     // Verificar si el usuario ya existe
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
-      return res.status(400).json({ error: 'El correo ya está registrado' });
-    }*/
+      return res.status(403).json({ error: 'El correo ya está registrado' });
+    }
 
     // Crear usuario
     const user = await User.create({
@@ -49,7 +49,7 @@ const login = async (req, res) => {
     // Buscar usuario
     const user = await User.findOne({ where: { email } });
     if (!user) {
-      return res.status(400).json({ error: 'Credenciales inválidas' });
+      return res.status(400).json({ error: 'Credenciales inváliddaas' });
     }
 
     // Verificar contraseña
@@ -60,7 +60,6 @@ const login = async (req, res) => {
 
     // Generar token JWT
     const token = jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, { expiresIn: '1d' });
-
     return res.status(200).json({ message: 'Login exitoso', token });
   } catch (error) {
     console.error(error);
