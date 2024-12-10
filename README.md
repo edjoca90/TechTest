@@ -6,13 +6,20 @@ Local Instalation:
 
     Clone repository from github.com/edjoca90/TechTest.
     Install dependencies (npm install).
+    npm install mysql2
+    npm install --save sequelize-cli
+    npm install --save sequelize
+    npm install bcrypt
+    npm install jsonwebtoken
+
+
     Configurate .env ( BD, JWT_SECRET, etc.).
     Execute migrations (npx sequelize-cli db:migrate).
     Start server (npm start).
 
 Watch server whenever you make changes:
-    1- npm install -g nodemon
-    2- nodemon server.js
+     npm install -g nodemon
+     nodemon server.js
 
 Test:
 

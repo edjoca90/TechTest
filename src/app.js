@@ -1,25 +1,20 @@
 // src/app.js
 require('dotenv').config(); 
 const express = require('express');
-const sequelize = require('./config/database'); // Configuración de Sequelize
-const User = require('./models/User'); // Modelo User
-const Token = require('./models/Token'); // Modelo Token
-const authRoutes = require('./routes/authRoutes'); // Rutas de autenticación
+const User = require('./models/User'); 
+const Token = require('./models/Token');
+const authRoutes = require('./routes/authRoutes'); 
 const config = require('./config/env');
-
+const sequelize = require('./config/database');
 
 const app = express();
 
-// Middleware para parsear JSON
 app.use(express.json());
-
-// Rutas
 app.use('/api/auth', authRoutes);
-
-// Health check
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'OK', timestamp: new Date() });
 });
+
 
 // Manejo de errores
 app.use((err, req, res, next) => {
@@ -28,12 +23,11 @@ app.use((err, req, res, next) => {
 });
 
 // Sincronizar base de datos y arrancar servidor
-const PORT = process.env.PORT || 3000;
-const URL= process.env.URL || 'http://localhost';
+const PORT = config.port || 3000;
+const URL= config.url || 'http://localhost';
 
-sequelize.sync({ force: false }) 
-  .then(() => {
-    console.log('Base de datos sincronizada');
+sequelize.sync({ force: false }).then(() => {
+    console.log('Base de datos conectada');
     app.listen(PORT, () => {
       console.log(`Servidor corriendo en ${URL}:${PORT}`);
     });
