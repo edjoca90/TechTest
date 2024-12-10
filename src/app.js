@@ -9,10 +9,11 @@ const sequelize = require('./config/database');
 const healthRoutes = require('./routes/healthRoutes');
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('../swagger-output.json');
-
+const morgan = require('morgan');
 const app = express();
 
 app.use(express.json());
+app.use(morgan("dev"));
 app.use('/api/auth', authRoutes);
 app.use('/api/health', healthRoutes);
 

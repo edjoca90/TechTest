@@ -6,7 +6,9 @@ const bcrypt = require('bcrypt');
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 
 // Registro de usuario
+
 const register = async (req, res) => {
+  await User.sync();
   const { name, email, password } = req.body;
 
   try {
@@ -14,16 +16,20 @@ const register = async (req, res) => {
     if (!name || !email || !password) {
       return res.status(400).json({ error: 'Todos los campos son obligatorios' });
     }
-
+/*
     // Verificar si el usuario ya existe
     const existingUser = await User.findOne({ where: { email } });
     if (existingUser) {
       return res.status(400).json({ error: 'El correo ya está registrado' });
-    }
+    }*/
 
     // Crear usuario
-    const user = await User.create({ name, email, password });
-    return res.status(201).json({ message: 'Usuario registrado con éxito', user: { id: user.id, name, email } });
+    const user = await User.create({
+       name, email, password });
+    return res.status(201).json({
+      ok: true,
+      status: 201,
+      message: 'Usuario registrado con éxito', user: { id: user.id, name, email } });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Error del servidor' });
