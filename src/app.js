@@ -1,26 +1,33 @@
 // src/app.js
 require('dotenv').config(); 
 const express = require('express');
-const User = require('./models/User'); 
-const Token = require('./models/Token');
-const authRoutes = require('./routes/authRoutes'); 
+
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger-output.json');
+const morgan = require('morgan');
+
+
 const config = require('./config/env');
 const sequelize = require('./config/database');
+const authRoutes = require('./routes/authRoutes'); 
+const healthRoutes = require('./routes/healthRoutes');
 
+
+const User = require('./models/User'); 
+//const Token = require('./models/Token');
 const app = express();
 
 app.use(express.json());
+app.use(morgan("dev"));
 app.use('/api/auth', authRoutes);
-app.get('/api/health', (req, res) => {
-  res.status(200).json({ status: 'OK', timestamp: new Date() });
-});
+app.use('/api/health', healthRoutes);
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-
-// Manejo de errores
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: 'Error interno del servidor' });
 });
+
 
 // Sincronizar base de datos y arrancar servidor
 const PORT = config.port || 3000;

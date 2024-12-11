@@ -4,7 +4,7 @@ const config = require('./env');
 
 const dbHost=config.dbHost || 'localhost';
 const db_name= config.dbName|| 'techTestDb';
-const db_user= config.dbUser;
+const db_user= config.dbUser || 'root';
 const db_password= config.dbPassword || '';
 
 

@@ -1,20 +1,21 @@
 // src/models/User.js
-import { DataTypes, Model } from 'sequelize';
-import { hash } from 'bcrypt';
-import sequelize from '../config/database.js'; 
+const {Sequelize, Model, DataTypes} = require('sequelize');
+const sequelize = require('../config/database');
+const { hash } = require('bcrypt');
 
+class User extends Model {}
 
-class User extends Model {
- 
-}
-
-User.init(
-  {
-    name: {
+  User.init({
+    user_id:{
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true
+    },
+    user_name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    email: {
+    user_email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
@@ -23,18 +24,14 @@ User.init(
     password: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
+    }
   },
   {
     sequelize, // Esto es necesario para conectar el modelo con la instancia de Sequelize
     modelName: 'User',
     tableName: 'users',
-  }
-);
-
-// Antes de guardar, hashear la contraseña
-User.beforeCreate(async (user) => {
-  user.password = await hash(user.password, 10);
-});
-
-export default User;
+  });
+  User.beforeCreate(async (user) => {
+    user.password = await hash(user.password, 10);
+  });
+  module.exports= User;
