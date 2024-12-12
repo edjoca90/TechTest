@@ -1,10 +1,7 @@
 // src/routes/healthRoutes.js
 const express = require('express');
 const sequelize = require('../config/database'); // Conexión de Sequelize
-
 const router = express.Router();
-
-// Endpoint Health Check
 router.get('/', async (req, res) => {
   try {
     // Verificar estado del servidor
@@ -16,12 +13,8 @@ router.get('/', async (req, res) => {
     });
   } catch (error) {
     res.status(500).json({
-      status: 'FAIL',
-      database: 'Disconnected',
-      error: error.message,
-      timestamp: new Date(),
+      status: 'FAIL',database: 'Disconnected',error: error.message,timestamp: new Date(),
     });
   }
 });
-
 module.exports = router;

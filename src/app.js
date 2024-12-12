@@ -32,15 +32,22 @@ app.use((err, req, res, next) => {
 // Sincronizar base de datos y arrancar servidor
 const PORT = config.port || 3000;
 const URL= config.url || 'http://localhost';
+const server= app.listen(PORT, () => {
+  console.log(`Servidor corriendo en ${URL}:${PORT}`);
+});
 
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync().then(() => {
     console.log('Base de datos conectada');
-    app.listen(PORT, () => {
-      console.log(`Servidor corriendo en ${URL}:${PORT}`);
+    server.on('error',(err)=>{
+      if (err.code === 'EADDRINUSE') {
+        console.error(`El puerto ${PORT} ya está en uso. Por favor, intenta con otro.`);
+        process.exit(1); // Termina el proceso actual
+      } else {
+        console.error('Error desconocido:', err);
+      }
     });
   })
   .catch((err) => {
     console.error('Error al sincronizar la base de datos:', err);
   });
-
 module.exports = app;

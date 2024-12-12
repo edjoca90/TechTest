@@ -1,6 +1,5 @@
 // src/config/swagger.js
 const swaggerAutogen = require('swagger-autogen')();
-
 const doc = {
   info: {
     title: 'API Documentation',
@@ -14,8 +13,6 @@ const doc = {
     { name: 'Health', description: 'Monitoreo del servidor' },
   ],
 };
-
 const outputFile = '../../swagger-output.json'; // Archivo de salida
 const endpointsFiles = ['./src/app.js']; // Archivo raíz con las rutas
-
 swaggerAutogen(outputFile, endpointsFiles, doc);

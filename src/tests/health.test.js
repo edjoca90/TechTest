@@ -1,8 +1,7 @@
 // tests/health.test.js
 import { describe, it, expect } from 'vitest';
 import request from 'supertest';
-import app from '../src/app.js'; // Importa tu aplicación de Express
-
+import app from '../app.js'; // Importa tu aplicación de Express
 describe('Health Check', () => {
   it('should return status OK', async () => {
     const response = await request(app).get('/api/health');
